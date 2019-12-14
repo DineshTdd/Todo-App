@@ -1,0 +1,119 @@
+.flex-container {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex-flow: row wrap;
+    -webkit-flex-flow: row wrap;
+    justify-content: space-around;
+  }
+
+.container {
+    width: 65%;
+}
+
+.dimension {
+    height: auto;
+    width: 100%;
+}
+
+.Header, .Footer{
+    height: 2rem;
+    width: 100%;
+    position: relative;        
+    background: #333;
+    padding: 10px 0;
+    color: #fff;
+}
+.Header{
+    top: 0;
+    overflow: hidden;
+}
+.Footer{
+    overflow: hidden;
+    bottom: 0;
+    text-align: center;
+    margin: 0;
+    position: relative;
+    display: flex;
+    flex-flow: row wrap;
+    -webkit-flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+.button-container {
+    position: relative;
+    display: flex;
+    width: 50%;
+    flex-wrap: row wrap;
+}
+
+input {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.card-content {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.todos > * {
+    margin: 0;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    width: 100%;
+    position: relative;
+    display: inline-block;
+    justify-content: space-between;
+}
+
+
+button {
+    border:1px solid gray;
+    border-radius:7%;
+    font-size:0.875;
+    word-wrap: break-word;
+    width: 100px;
+    max-width: 100%;
+    margin: 2px auto 2px auto;
+    height: 100%;
+    color: white;
+    background-color: black;
+}
+
+button:focus {
+    color: rgb(101, 101, 255);
+}
+
+.todos .todo-item {
+    width: 90%;
+}
+
+.delete-button {
+    height: 100%;
+    width: 10%;
+    float: inline-end;
+    text-align: center;
+    margin: auto;
+    font-weight: bold;
+    font-size: large;
+    background-color: #fff;
+    color: black;
+    border: none;
+    outline: none;
+}
+
+.delete-button:focus {
+    width: 10%;
+    border: none;
+    outline: none;
+    color: red;
+}
