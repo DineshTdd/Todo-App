@@ -15,11 +15,15 @@
 
 .container {
     width: 65%;
+    padding-top: 0;
+    margin-top: 0;
 }
 
 .dimension {
     height: auto;
     width: 100%;
+    padding-top: 0;
+    margin-top: 0;
 }
 
 .Header, .Footer{
@@ -27,11 +31,12 @@
     width: 100%;
     position: relative;        
     background: #333;
-    padding: 10px 0;
+    padding: 0 0 1rem 0;
     color: #fff;
 }
 .Header{
     top: 0;
+    height: 3rem;
     overflow: hidden;
 }
 .Footer{
@@ -44,6 +49,7 @@
     flex-flow: row wrap;
     -webkit-flex-flow: row wrap;
     justify-content: space-around;
+    padding-top: 0.5rem;
 }
 
 .button-container {
@@ -51,12 +57,24 @@
     display: flex;
     width: 50%;
     flex-wrap: row wrap;
+    height: 100%;
 }
 
 input {
     position: relative;
     width: 100%;
+    margin: 0rem;
     height: 100%;
+    font-size: x-large;
+    font-weight: 300;
+}
+
+input::placeholder {
+    font-weight: 500;
+    opacity: 0.2;
+    font-style: italic;
+    font-size: x-large;
+    font-stretch: extra-expanded;
 }
 
 .card-content {
@@ -65,14 +83,57 @@ input {
     padding: 0;
 }
 
+
 .todos > * {
     margin: 0;
-    padding-top: 1rem;
+    padding-top: 0.65rem;
     padding-bottom: 1rem;
-    width: 100%;
+    width: auto;
     position: relative;
-    display: inline-block;
+    display: inline-flex;
+    flex-flow: row wrap;
+    -webkit-flex-flow: row wrap;
     justify-content: space-between;
+    color: #000;
+    border-bottom: 1px solid grey;
+    overflow: hidden;
+}
+
+
+.todos .todo-item {
+    padding-left: 10px;
+    width: 85%;
+    font-size: x-large;
+    font-weight: 500;
+    font-style: italic;
+    word-wrap: break-word;
+    overflow: hidden;
+}
+
+.delete-button {
+    background-color: #fff;
+    text-align: center;
+    font-weight: 700;
+    word-wrap: break-word;
+    font-size: larger;
+    color: black;
+    border: none;
+    outline: none;
+    visibility: hidden;
+    margin: 0;
+}
+
+
+.todos:hover .delete-button{
+    visibility: visible;
+    cursor: pointer;
+    color: rgb(255, 162, 162);
+}
+
+.todos:not(:hover) .todos:active .delete-button {
+    visibility: visible;
+    cursor: pointer;
+    color: rgb(255, 162, 162);
 }
 
 
@@ -86,34 +147,13 @@ button {
     margin: 2px auto 2px auto;
     height: 100%;
     color: white;
-    background-color: black;
+    background-color: #000;
+}
+\
+button:hover  {
+    cursor: pointer;
 }
 
 button:focus {
     color: rgb(101, 101, 255);
-}
-
-.todos .todo-item {
-    width: 90%;
-}
-
-.delete-button {
-    height: 100%;
-    width: 10%;
-    float: inline-end;
-    text-align: center;
-    margin: auto;
-    font-weight: bold;
-    font-size: large;
-    background-color: #fff;
-    color: black;
-    border: none;
-    outline: none;
-}
-
-.delete-button:focus {
-    width: 10%;
-    border: none;
-    outline: none;
-    color: red;
 }
