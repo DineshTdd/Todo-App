@@ -11,6 +11,8 @@ class Todo extends Component {
         todoInput: '',
         todoList: this.props.todoList.slice(0)
     }
+
+
     handleKeyPress = async (event) => {
         if(event.key === 'Enter') {
             if ((this.state.todoInput.trim()).length === 0) {
@@ -18,6 +20,8 @@ class Todo extends Component {
                 return;
             }
             await this.props.onAddTodo(this.state.todoInput);
+            await this.props.getActiveTodos();
+            this.props.getCompletedTodos();
             this.setState({todoInput: '', todoList: this.props.todoList.filter(x => x)});
         }
     };
@@ -46,7 +50,48 @@ class Todo extends Component {
         this.setState({todoList: this.props.todoCompletedList.filter(x => x)});
     };
 
+    clearCompletedTodos = async () => {
+        await this.props.clearCompletedTodos();
+        await this.props.getCompletedTodos();
+        await this.props.getAllTodos();
+        this.setState({todoList: this.props.todoList.filter(x => x)});
+    };
+
+    toggleCompleted = async (id) => {
+        await this.props.onToggleCompleted(id);
+        await this.props.getAllTodos();
+        await this.props.getCompletedTodos();
+        await this.props.getActiveTodos();
+        this.setState({todoList: this.props.todoList.filter(x => x)});
+    }
+
     render () {
+        let Footer;
+        let activeItemIndicator = (<div className="item-indicator">
+        <span>{this.props.todoActiveList.length} {(this.props.todoActiveList.length === 1)? 'item left' : 'items left'}</span>
+        </div>) ;
+        let clearCompleted = '';
+        if (this.props.todoCompletedList.length > 0) {
+            clearCompleted = (<div className="clear-completed">
+                <button onClick={this.clearCompletedTodos} title="Clear completed" className="clear-button" type="button">Clear</button>
+            </div>);
+        }
+        if (this.props.todoList.length === 0) {
+            Footer = '';
+        } else {
+            if (this.props.todoList.length === 0) {
+                activeItemIndicator = '';
+            }
+            Footer = (<div className="Footer">
+            {activeItemIndicator}               
+            <div className="button-container">
+                <button type="button" onClick={this.allTodos}>All</button>
+                <button type="button" onClick={this.activeTodos}>Active</button>
+                <button type="button" onClick={this.completedTodos}>Completed</button>
+            </div>
+            {clearCompleted}
+            </div>);
+        }
         return (
         <div className="flex-container">
             <div className="container">
@@ -58,9 +103,10 @@ class Todo extends Component {
                 <div className="card-content">
                     <div className="todos-container">
                     {this.state.todoList.slice(0).reverse().map(todo => (
-                        <div key={todo.id} className="todos">
-                            <div className="todo-item" >
-                            <div>{todo.todo}</div>
+                        <div onClick={() => {this.toggleCompleted(todo.id)}} className="item-container" key={todo.id}>
+                        <div  className="todos">
+                            <div className="todo-item">
+                            <div className={todo.completed ? 'strike apply' : 'strike'}>{todo.todo}</div>
                             </div>
                             <div className="delete-button-container">
                                 <div>
@@ -68,16 +114,11 @@ class Todo extends Component {
                                 </div>
                             </div>
                         </div>
+                        </div>
                     ))}
                     </div>
                 </div>
-                <div className="Footer">
-                    <div className="button-container">
-                        <button type="button" onClick={this.allTodos}>All</button>
-                        <button type="button" onClick={this.activeTodos}>Active</button>
-                        <button type="button" onClick={this.completedTodos}>Completed</button>
-                    </div>
-                </div>
+                {Footer}
                 </div>
             </Card>
              </div>
@@ -101,7 +142,9 @@ const mapDispatchToProps = dispatch => {
         onDeleteTodo: (id) => dispatch({type: todoActions.DELETE_TODO, payload: {id}}),
         getAllTodos: () => dispatch({type: todoActions.ALL_TODOS}),
         getActiveTodos: () => dispatch({type: todoActions.ACTIVE_TODOS}),
-        getCompletedTodos: () => dispatch({type: todoActions.COMPLETED_TODOS})
+        getCompletedTodos: () => dispatch({type: todoActions.COMPLETED_TODOS}),
+        clearCompletedTodos: () => dispatch({type: todoActions.CLEAR_COMPLETED_TODOS}),
+        onToggleCompleted: (id) => dispatch({type: todoActions.TOGGLE_COMPLETED, payload: {id}})
     };
 };
 
