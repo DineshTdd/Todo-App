@@ -6,9 +6,9 @@ if(localStorage.getItem('todoList') === null || localStorage.getItem('todoActive
     localStorage.setItem('todoCompletedList', JSON.stringify([]));
 }
 
-const tl = JSON.parse(localStorage.getItem('todoList'));
-const tal = JSON.parse(localStorage.getItem('todoActiveList'));
-const tcl = JSON.parse(localStorage.getItem('todoCompletedList'));
+const tl = JSON.parse(localStorage.getItem('todoList')) || [];
+const tal = JSON.parse(localStorage.getItem('todoActiveList')) || [];
+const tcl = JSON.parse(localStorage.getItem('todoCompletedList')) || [];
 
 const initialState = {
     todoList: tl,
