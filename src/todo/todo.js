@@ -171,12 +171,8 @@ class Todo extends Component {
                           onMouseUp={e => {
                               this.handleButtonRelease();
                             if (this.state.isSwiping && e.button === 0) {
-                              console.log('dragging');
                               this.toggleCompleted(todo.id)
-                            } else {
-                              console.log('not dragging');
                             }
-                      
                             this.setState({isSwiping: false});
                           }}
                           onMouseLeave={this.handleButtonRelease}
@@ -190,15 +186,13 @@ class Todo extends Component {
                           onTouchEnd={e => {
                             this.handleButtonRelease();
                             if (this.state.isSwiping) {
-                              console.log('swiping');
                               this.toggleCompleted(todo.id)
-                            } else {
-                              console.log('not swiping');
                             }
                             this.setState({isSwiping: false});
                           }}
                         >
                         <div  className="todos">
+                            {/* Rendering todo item based on edit mode or normal mode */}
                             <div className="todo-item">
                             {
                                 (todo.id === this.state.todoEditId) ?
@@ -208,6 +202,7 @@ class Todo extends Component {
                                     onKeyPress={this.handleEditKeyPress}
                                     onChange={this.todoEditChangeHandler}
                                     onFocus={() => {this.setState({todoEditInput: todo.todo, todoEditId: todo.id})}}
+                                    onBlur={() => {this.setState({todoEditInput: '', todoEditId: 0})}}
                                 />
                                 : <div className={todo.completed ? 'strike apply' : 'strike'}>{todo.todo}</div>
                             }
@@ -253,4 +248,5 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
+// Connecting Store State to Component Props
 export default connect(mapStateToProps, mapDispatchToProps)(Todo);

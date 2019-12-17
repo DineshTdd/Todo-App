@@ -1,5 +1,6 @@
 import * as todoActions from '../action/_todo';
 
+// Setting up the locaql storage
 if(localStorage.getItem('todoList') === null || localStorage.getItem('todoActiveList') === null || localStorage.getItem('todoCompletedList') === null) {
     localStorage.setItem('todoList', JSON.stringify([]));
     localStorage.setItem('todoActiveList', JSON.stringify([]));
