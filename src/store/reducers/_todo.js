@@ -77,6 +77,21 @@ export default ( state = initialState, action ) => {
                 ...state,
                 todoList: JSON.parse(localStorage.getItem('todoList'))
             }
+        case todoActions.EDIT_TODO:
+            localStorage.setItem('todoList', JSON.stringify(state.todoList.map( x => {
+                if (x.id === action.payload.id) {
+                    let newx= x;
+                    newx.completed = false
+                    newx.todo = action.payload.todo
+                    return newx;
+                } else {
+                    return x;
+                }
+            })))
+            return {
+                ...state,
+                todoList: JSON.parse(localStorage.getItem('todoList'))
+            }
         default:
             return state;
     }
